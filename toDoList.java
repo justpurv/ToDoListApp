@@ -1,11 +1,34 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class toDoList {
 
+    private static void saveTasksToFile(ArrayList<String> tasks) {
+        try (PrintWriter writer = new PrintWriter("tasks.txt")) {
+            for (String task : tasks) {
+                writer.println(task);
+            }
+        } catch (IOException e) {
+            System.out.println("error saving tasks to file : " + e.getMessage());
+        }
+    }
+
+    private static void loadTasksFromFile(ArrayList<String> tasks) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("tasks.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                tasks.add(line);
+            }
+        } catch (IOException e) {
+            System.out.println("error loading tasks from file : " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
 
         ArrayList<String> tasks = new ArrayList<>();
+        loadTasksFromFile(tasks);
         Scanner t = new Scanner(System.in);
 
         System.out.println("\n--- TO-DO-LIST MENU ---");
@@ -31,6 +54,7 @@ public class toDoList {
                     System.out.println("enter the task :");
                     String task = t.nextLine();
                     tasks.add(task);
+                    saveTasksToFile(tasks);
                     System.out.println("task added successfully!");
                     break;
 
@@ -57,6 +81,7 @@ public class toDoList {
                     if (taskNumber > 0 && taskNumber <= tasks.size()) {
                         String completed = tasks.get(taskNumber - 1) + " (completed)";
                         tasks.set(taskNumber - 1, completed);
+                        saveTasksToFile(tasks);
                         System.out.println("task marked as completed");
                     } else {
                         System.out.println("invalid task number!!");
@@ -73,6 +98,7 @@ public class toDoList {
 
                     if (taskToRemove > 0 && taskToRemove <= tasks.size()) {
                         tasks.remove(taskToRemove - 1);
+                        saveTasksToFile(tasks);
                         System.out.println("task removed successfully!!");
                     } else {
                         System.out.println("invalid task number!!");
