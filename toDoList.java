@@ -1,3 +1,5 @@
+// package ToDoListApp;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -31,15 +33,14 @@ public class toDoList {
         loadTasksFromFile(tasks);
         Scanner t = new Scanner(System.in);
 
-        System.out.println("\n--- TO-DO-LIST MENU ---");
-        System.out.println("1.ADD TASK");
-        System.out.println("2.VIEW TASKS");
-        System.out.println("3.MARK TASK AS COMPLETED");
-        System.out.println("4.REMOVE TASK");
-        System.out.println("5.EXIT");
-
         boolean running = true;
         while (running) {
+            System.out.println("\n--- TO-DO-LIST MENU ---");
+            System.out.println("1.ADD TASK");
+            System.out.println("2.VIEW TASKS");
+            System.out.println("3.MARK TASK AS COMPLETED");
+            System.out.println("4.REMOVE TASK");
+            System.out.println("5.EXIT");
 
             System.out.println("ENTER YOUR CHOICE : ");
 
@@ -113,8 +114,8 @@ public class toDoList {
                 default:
                     System.out.println("Invalid choice please try again : ");
             }
-
         }
         t.close();
     }
 }
+
